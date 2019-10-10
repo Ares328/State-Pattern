@@ -2,13 +2,11 @@ package ui;
 
 import domain.*;
 import exceptions.OperationNotAvailable;
-import javafx.collections.transformation.SortedList;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 public class ShopUI {
 
@@ -155,7 +153,7 @@ public class ShopUI {
 
         if(input!=null) {
             try {
-                input.loan();
+                input.rent();
             } catch (OperationNotAvailable operationNotAvailable) {
                 //TODO: create dialog;
             }

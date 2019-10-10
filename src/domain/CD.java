@@ -1,8 +1,10 @@
 package domain;
 
 public class CD extends Product {
-    public CD(String title) {
-        super(title);
+
+    public CD(String title){super(title);}
+    public CD(String title, double price) {
+        super(title,price);
     }
 
     @Override

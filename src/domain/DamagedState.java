@@ -11,7 +11,7 @@ public class DamagedState extends RequestState implements Serializable {
 
     @Override
     public void remove() {
-        product.setCurrentState(product.getDamagedState());
+        product.setCurrentState(product.getRemovedState());
     }
 
     @Override

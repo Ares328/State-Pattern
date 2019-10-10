@@ -1,8 +1,10 @@
 package domain;
 
 public class Game extends Product {
-    public Game(String title) {
-        super(title);
+
+    public Game(String title){super(title);}
+    public Game(String title,double price) {
+        super(title,price);
     }
 
     @Override

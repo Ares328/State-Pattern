@@ -8,6 +8,7 @@ public abstract class Product implements Serializable {
     private static int COUNT;
     private int id;
     private String title;
+    private double price;
 
     private DamagedState damagedState;
     private LendableState lendableState;
@@ -19,7 +20,7 @@ public abstract class Product implements Serializable {
 
     public Product(String title){
         id = ++COUNT;
-        setTitle(title);
+        this.title = title;
 
         damagedState = new DamagedState(this);
         lendableState = new LendableState(this);
@@ -29,6 +30,10 @@ public abstract class Product implements Serializable {
         currentState = lendableState;
     }
 
+    public Product(String title, double price){
+        this(title);
+        this.price = price;
+    }
     public abstract double getPrice(int days);
 
     public void setCurrentState(RequestState state){ currentState = state;}
@@ -55,7 +60,7 @@ public abstract class Product implements Serializable {
         currentState.reinstate(isDamaged);
     }
 
-    public void loan() throws OperationNotAvailable {
+    public void rent() throws OperationNotAvailable {
         currentState.loan();
     }
 
@@ -84,5 +89,13 @@ public abstract class Product implements Serializable {
 
     public LendableState getLendableState(){
         return lendableState;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

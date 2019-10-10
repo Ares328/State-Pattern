@@ -25,4 +25,8 @@ public class Shop {
         this.products.add(product);
     }
 
+    public Product getProduct(int ID){
+        return products.stream().filter((p)->p.getId() == ID).findFirst().orElse(null);
+    }
+
 }

@@ -2,7 +2,9 @@ package domain;
 
 import exceptions.OperationNotAvailable;
 
-public abstract class RequestState {
+import java.io.Serializable;
+
+public abstract class RequestState implements Serializable {
 
     protected Product product;
 
