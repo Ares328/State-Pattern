@@ -6,10 +6,7 @@ import exceptions.OperationNotAvailable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -23,8 +20,8 @@ public class ReturnProductHandler extends ShopEventHandler implements EventHandl
     public void handle(ActionEvent event) {
         TextField idField = new TextField("ProductId");
 
-        Button showBtn = new Button("show");
-        showBtn.setOnAction((e)->{
+        Button returnBtn = new Button("Return");
+        returnBtn.setOnAction((e)->{
             returnProduct(idField.getText());
         });
 
@@ -34,7 +31,7 @@ public class ReturnProductHandler extends ShopEventHandler implements EventHandl
             primaryStage.show();
         });
 
-        HBox hBox = new HBox(idField,showBtn);
+        HBox hBox = new HBox(idField,returnBtn);
         hBox.setSpacing(20);
         GridPane gridPane = new GridPane();
         gridPane.add(hBox,1,1);
@@ -48,11 +45,36 @@ public class ReturnProductHandler extends ShopEventHandler implements EventHandl
 
     public void returnProduct(String productID){
         try{
+            boolean damaged;
             int productIDConverted = Integer.parseInt(productID.trim());
             Product product = shop.getProduct(productIDConverted);
-            new Alert(Alert.AlertType.INFORMATION, product.toString()).showAndWait();
 
-        } catch (Exception nullPointerNumberFormatException) {
+            if(product == null){
+                new Alert(Alert.AlertType.ERROR, "Product not found!").showAndWait();
+                return;
+            }
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Product state confirmation");
+            alert.setContentText("Is product damaged?");
+            ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+            alert.getButtonTypes().setAll(okButton, noButton);
+            alert.showAndWait().ifPresent(type -> {
+                try {
+                    if (type == okButton) {
+                        product.reinstate(true);
+                        new Alert(Alert.AlertType.INFORMATION, "Fee for damaged product to pay: " + product.getFeePrice()).showAndWait();
+                    } else if (type == noButton) {
+                        product.reinstate(false);
+                        new Alert(Alert.AlertType.INFORMATION, "Product succesfully returned with no fee").showAndWait();
+                    }
+                } catch(OperationNotAvailable e){
+                    new Alert(Alert.AlertType.ERROR, "Product cannot be returned!").showAndWait();
+                }
+            });
+        }
+        catch (Exception nullPointerNumberFormatException) {
             new Alert(Alert.AlertType.ERROR, "ProductId not valid").showAndWait();
         }
     }

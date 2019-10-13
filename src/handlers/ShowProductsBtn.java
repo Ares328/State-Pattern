@@ -1,5 +1,6 @@
 package handlers;
 
+import domain.LendableState;
 import domain.Product;
 import domain.Shop;
 import javafx.event.ActionEvent;
@@ -43,7 +44,9 @@ public class ShowProductsBtn extends ShopEventHandler implements EventHandler<Ac
     private void updateProductList(ListView list){
         list.getItems().clear();
         for (Product product: shop.getProducts()) {
-            list.getItems().add(product);
+            if (product.getCurrentState().getClass() == LendableState.class){
+                list.getItems().add(product);
+            }
         }
     }
 }

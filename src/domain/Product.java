@@ -3,12 +3,15 @@ package domain;
 import exceptions.OperationNotAvailable;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public abstract class Product implements Serializable {
-    private static int COUNT;
+
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private String title;
-    private double price;
+    private double purchasePrice;
 
     private DamagedState damagedState;
     private LendableState lendableState;
@@ -19,7 +22,7 @@ public abstract class Product implements Serializable {
 
 
     public Product(String title){
-        id = ++COUNT;
+        id = UUID.randomUUID().hashCode();
         this.title = title;
 
         damagedState = new DamagedState(this);
@@ -32,9 +35,17 @@ public abstract class Product implements Serializable {
 
     public Product(String title, double price){
         this(title);
-        this.price = price;
+        this.purchasePrice = price;
     }
     public abstract double getPrice(int days);
+
+    public double getRentPrice(){
+        return purchasePrice/5;
+    }
+
+    public double getFeePrice(){
+        return purchasePrice/3;
+    }
 
     public void setCurrentState(RequestState state){ currentState = state;}
 
@@ -91,11 +102,11 @@ public abstract class Product implements Serializable {
         return lendableState;
     }
 
-    public double getPrice() {
-        return price;
+    public double getPurchasePrice() {
+        return purchasePrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPurchasePrice(double purchasePrice) {
+        this.purchasePrice = purchasePrice;
     }
 }

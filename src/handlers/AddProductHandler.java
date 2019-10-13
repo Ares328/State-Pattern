@@ -21,7 +21,7 @@ public class AddProductHandler extends ShopEventHandler implements EventHandler<
     @Override
     public void handle(ActionEvent event) {
         TextField titleField = new TextField("Set title");
-        TextField priceField = new TextField("Set price");
+        TextField priceField = new TextField("Set purchase price");
 
         MenuItem cd = new MenuItem("CD");
         MenuItem game = new MenuItem("Game");

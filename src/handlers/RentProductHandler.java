@@ -1,6 +1,5 @@
 package handlers;
 
-import domain.LendableState;
 import domain.Product;
 import domain.Shop;
 import exceptions.OperationNotAvailable;
@@ -53,7 +52,7 @@ public class RentProductHandler extends ShopEventHandler implements EventHandler
         Product product = shop.getProduct(productIDConverted);
         try{
             product.rent();
-            new Alert(Alert.AlertType.INFORMATION, "Product has been successfully rented!").showAndWait();
+            new Alert(Alert.AlertType.INFORMATION, "The rent price: " + product.getRentPrice()).showAndWait();
 
         } catch (OperationNotAvailable operationNotAvailable) {
             new Alert(Alert.AlertType.ERROR, "Product cannot be rented!").showAndWait();
