@@ -1,9 +1,7 @@
 package ui;
 
 import domain.Shop;
-import handlers.AddProductHandler;
-import handlers.RemoveProductHandler;
-import handlers.RentProductHandler;
+import handlers.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -43,6 +41,9 @@ public class ShopUIFx {
         addProductBtn.setOnAction(new AddProductHandler(primaryStage,scene,shop));
         removeProductBtn.setOnAction(new RemoveProductHandler(primaryStage,scene,shop));
         rentProductBtn.setOnAction(new RentProductHandler(primaryStage,scene,shop));
+        returnProductBtn.setOnAction(new ReturnProductHandler(primaryStage,scene,shop));
+        repairProductBtn.setOnAction(new RepairProductBtn(primaryStage,scene,shop));
+        showProductsBtn.setOnAction(new ShowProductsBtn(primaryStage,scene,shop));
 
 
         exitBtn.setOnAction((e)->primaryStage.close());

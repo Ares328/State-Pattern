@@ -24,7 +24,6 @@ public class ShopLauncher extends Application {
 
         ShopUIFx ui = new ShopUIFx(shop);
         ui.start(primaryStage);
-
     }
 
     public static void main(String[] args) {
